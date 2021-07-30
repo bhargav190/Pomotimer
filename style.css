@@ -1,0 +1,22 @@
+#round-title{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 50px;
+    text-align: center;
+}
+
+#timer {
+    margin:auto;
+    width: 400px;
+    height: 250px;
+    background-color: gold;
+    color: navy;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 150px;
+    text-align: center;
+}
+
+#button-panel{
+    margin:auto;
+    height: 50px;
+    width: 50px;
+}
