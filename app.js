@@ -3,10 +3,20 @@ let roundTitle = document.getElementById("round-title");
 let timerDiv = document.getElementById("timer");
 let round = 1;
 let number = 25 * 60;
+
 let timeParse = function (seconds) {
     let min, sec;
+    
     min = Math.floor(seconds / 60);
-    sec = seconds - min * 60;
+    sec = seconds % 60;
+
+    if(min<10) min = "0"+min;
+    else min = String(min);
+    
+    if(sec<10) sec = "0"+sec;
+    else sec = String(sec);
+    
+
     return min + ":" + sec;
 }
 
