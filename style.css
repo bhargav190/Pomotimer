@@ -20,3 +20,27 @@
     height: 50px;
     width: 50px;
 }
+
+#present-task{
+    color: red;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+.line{
+    border-bottom: 2px solid black;
+}
+
+.selected, .unselected{
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.selected{
+    background-color: skyblue;
+}
+
+.unselected{
+    background-color: greenyellow;
+}

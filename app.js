@@ -6,16 +6,16 @@ let number = 25 * 60;
 
 let timeParse = function (seconds) {
     let min, sec;
-    
+
     min = Math.floor(seconds / 60);
     sec = seconds % 60;
 
-    if(min<10) min = "0"+min;
+    if (min < 10) min = "0" + min;
     else min = String(min);
-    
-    if(sec<10) sec = "0"+sec;
+
+    if (sec < 10) sec = "0" + sec;
     else sec = String(sec);
-    
+
 
     return min + ":" + sec;
 }
@@ -57,3 +57,73 @@ let startTimer = function () {
 }
 
 startButton.addEventListener("click", startTimer);
+
+
+const displayTasks = function (tasks) {
+    const taskList = document.getElementById('tasks-list');
+    taskList.innerHTML = '';
+    for (let task of tasks) {
+        console.log(task);
+        let taskDiv = document.createElement('div');
+        taskDiv.classList += 'unselected';
+        taskDiv.innerText = task.taskname + " - " + task.pomodoros + ' pomodoros';
+        
+        taskDiv.addEventListener('click', function(){
+            document.getElementById('present-task').innerText = this.innerText;
+            let selectedTask = document.getElementsByClassName('selected');
+            if(selectedTask[0]){
+                selectedTask[0].className = 'unselected';
+            }
+            this.className = 'selected';
+        })
+
+        taskList.appendChild(taskDiv);
+    }
+}
+
+const retrieveTasks = function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", '/tasks', true);
+    xhr.setRequestHeader(
+        "Content-type",
+        "application/json;charset=UTF-8"
+    );
+    xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+
+        if (this.status == 200) {
+            displayTasks(JSON.parse(this.responseText));
+        } else {
+            alert(this.responseText);
+        }
+    };
+
+    xhr.send();
+}
+
+let newTaskButton = document.getElementById('new-task-button');
+newTaskButton.addEventListener('click', function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/addTask', true);
+    xhr.setRequestHeader(
+        "Content-type",
+        "application/json;charset=UTF-8"
+    );
+    xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+
+        if (this.status == 200) {
+            retrieveTasks();
+        } else {
+            alert(this.responseText);
+        }
+    };
+
+    let newTaskData = {
+        taskname: document.getElementById('task-name-box').value,
+        pomodoros: document.getElementById('pomodoros-box').value,
+    };
+
+    xhr.send(JSON.stringify(newTaskData));
+});
+retrieveTasks();
